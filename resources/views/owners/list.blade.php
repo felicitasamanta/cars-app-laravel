@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Owners</div>
                     <div class="card-body">
@@ -12,6 +12,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Surname</th>
+                                <th>Cars</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -20,9 +21,17 @@
                                 <tr>
                                     <td>{{$owner-> name}}</td>
                                     <td> {{$owner->surname}}</td>
+                                    <td>
+                                        @foreach($owner->cars as $car)
+                                            {{$car->brand}} {{$car->model}} <br>
+                                        @endforeach
+                                    </td>
                                     <td style="width: 200px;" >
                                         <a href="{{route('owners.update', $owner->id)}}" class="btn btn-info">Update</a>
-                                        <a href="{{route('owners.delete', $owner->id)}}" class="btn btn-danger">Delete</a>
+                                        @if($owner->cars->count()==0)
+                                            <a href="{{route('owners.delete', $owner->id)}}" class="btn btn-danger">Delete</a>
+                                        @endif
+
                                     </td>
                                 </tr>
                             @endforeach
