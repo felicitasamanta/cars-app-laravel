@@ -13,7 +13,7 @@
                                 <th>Registration number</th>
                                 <th>Brand</th>
                                 <th>Model</th>
-                                <th>Owner id</th>
+                                <th>Owner name</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>

@@ -17,6 +17,20 @@
                                 <label class="form-label">Surname</label>
                                 <input type="text" class="form-control" name="surname" value="{{$owner->surname}}">
                             </div>
+                            @if($owner->cars)
+                                <div class="mb-3">
+                                    <label class="form-label">Cars</label>
+                                    <td>
+                                        <ul>
+                                            @foreach($owner->cars as $car)
+                                                <li> {{$car->brand}} {{$car->model}}</li>
+                                            @endforeach
+                                        </ul>
+
+                                    </td>
+                                </div>
+                            @endif
+
                             <button class="btn btn-success">Update</button>
                         </form>
                     </div>

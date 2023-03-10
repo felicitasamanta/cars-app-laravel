@@ -22,9 +22,12 @@
                                     <td>{{$owner-> name}}</td>
                                     <td> {{$owner->surname}}</td>
                                     <td>
-                                        @foreach($owner->cars as $car)
-                                            {{$car->brand}} {{$car->model}} <br>
-                                        @endforeach
+                                        <ul>
+                                            @foreach($owner->cars as $car)
+                                               <li> {{$car->brand}} {{$car->model}}</li>
+                                            @endforeach
+                                        </ul>
+
                                     </td>
                                     <td style="width: 200px;" >
                                         <a href="{{route('owners.update', $owner->id)}}" class="btn btn-info">Update</a>
