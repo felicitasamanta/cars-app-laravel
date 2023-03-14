@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('user', ['only' => ['create', 'store', 'edit', 'delete']]);
+        // Alternativly
+        $this->middleware('user', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      */

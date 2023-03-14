@@ -6,14 +6,17 @@
                 <div class="card">
                     <div class="card-header">Owners</div>
                     <div class="card-body">
+                        @if(\Illuminate\Support\Facades\Auth::user() !== null)
+                            @if(\Illuminate\Support\Facades\Auth::user()->rights !== null && \Illuminate\Support\Facades\Auth::user()->rights === 'admin' )
                         <a href="{{route('owners.create')}}" class="btn btn-primary float-end">Add new owner</a>
+                        @endif
+                        @endif
                         <table class="table">
                             <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Surname</th>
                                 <th>Cars</th>
-                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -29,6 +32,8 @@
                                         </ul>
 
                                     </td>
+                                    @if(\Illuminate\Support\Facades\Auth::user() !== null)
+                                        @if(\Illuminate\Support\Facades\Auth::user()->rights !== null && \Illuminate\Support\Facades\Auth::user()->rights === 'admin' )
                                     <td style="width: 200px;" >
                                         <a href="{{route('owners.update', $owner->id)}}" class="btn btn-info">Update</a>
                                         @if($owner->cars->count()==0)
@@ -36,6 +41,8 @@
                                         @endif
 
                                     </td>
+                                    @endif
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

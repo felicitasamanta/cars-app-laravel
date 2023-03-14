@@ -30,6 +30,7 @@ class OwnerController extends Controller
     }
     public function update($id) {
         $owner=Owner::find($id);
+       // dd($owner);
         return view('owners.update', [
             "owner"=>$owner
         ]);

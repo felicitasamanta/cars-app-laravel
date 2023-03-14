@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\ShortCodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,14 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [OwnerController::class, 'owners']) ->name('owners.list');
-Route::get('/owners/create', [OwnerController::class, 'create'])->name('owners.create');
-Route::post('owners/store', [OwnerController::class, 'store'])->name('owners.store');
-Route::get('/owners/{id}/update', [OwnerController::class, 'update'])->name('owners.update');
-Route::post('/owners/{id}/save', [OwnerController::class, 'save'])->name('owners.save');
-Route::get('/owners/{id}/destroy', [OwnerController::class, 'delete'])->name('owners.delete');
+Route::middleware(['shortcode'])->group(function () {
 
-Route::resource('cars', CarController::class);
+    Route::get('/', [OwnerController::class, 'owners'])->name('owners.list');
+    Route::middleware(['auth'])->group(function () {
+        Route::resource('cars', CarController::class);
+
+        Route::middleware(['user'])->group(function () {
+            Route::get('/owners/create', [OwnerController::class, 'create'])->name('owners.create');
+            Route::post('owners/store', [OwnerController::class, 'store'])->name('owners.store');
+            Route::get('/owners/{id}/update', [OwnerController::class, 'update'])->name('owners.update');
+            Route::post('/owners/{id}/save', [OwnerController::class, 'save'])->name('owners.save');
+            Route::get('/owners/{id}/destroy', [OwnerController::class, 'delete'])->name('owners.delete');
+        });
+    });
+});
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
